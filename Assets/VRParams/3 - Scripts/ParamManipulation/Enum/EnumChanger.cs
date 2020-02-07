@@ -19,7 +19,7 @@ public class EnumChanger : UnityEnumInteraction
     /// </summary>
     public float yOffset;
 
-    public float step = 0.03f;
+    public float step = 0.05f;
     private float selection = 0;
 
     public HandRole right;
