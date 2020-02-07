@@ -22,14 +22,26 @@ public class DescriptionBox : MonoBehaviour
         
     }
 
-    public void InitDescription(string name, string val)
+    public void InitDescription(string name, string type, string val)
     {
         string descStr = "";
         string minimizedStr = "";
 
-        descStr = string.Format("Selected Parameter: " + name +" \n Current Value: "+  val);
+        descStr = string.Format("Selected "+ type + "-Parameter: \n " + name +"\nCurrent Value: \n "+  val);
         minimizedStr = string.Format(name + ": " + val);
         description.text = descStr;
         minimizedText.text = minimizedStr;
     }
+
+    public void InitDescription(string name, string type, string val, string enumChoices)
+    {
+        string descStr = "";
+        string minimizedStr = "";
+
+        descStr = string.Format("Selected " + type + "-Parameter: \n " + name + "\nEnum values: \n " + "[" + enumChoices + "]" + "\nCurrent Value: \n " + val);
+        minimizedStr = string.Format(name + ": " + val);
+        description.text = descStr;
+        minimizedText.text = minimizedStr;
+    }
+
 }

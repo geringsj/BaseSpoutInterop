@@ -81,26 +81,27 @@ public class DynamicViewMenu : VisParamMenu
 
         if (boolinteraction.gameObject.active)
         {
-            description.InitDescription(boolinteraction.GetSelectedValue().name, boolinteraction.GetSelectedValue().param.ToString());
+            description.InitDescription(boolinteraction.GetSelectedValue().name, "Bool", boolinteraction.GetSelectedValue().param.ToString());
         }
         else if (intInteraction.gameObject.active)
         {
-            description.InitDescription(intInteraction.GetSelectedValue().name, intInteraction.GetSelectedValue().param.ToString());
+            description.InitDescription(intInteraction.GetSelectedValue().name, "Integer", intInteraction.GetSelectedValue().param.ToString());
         }
         else if (floatInteraction.gameObject.active)
         {
-            description.InitDescription(floatInteraction.GetSelectedValue().name, floatInteraction.GetSelectedValue().param.ToString());
+            description.InitDescription(floatInteraction.GetSelectedValue().name, "Float", floatInteraction.GetSelectedValue().param.ToString());
         }
         else if (enumInteraction.gameObject.active)
         {
             // remove selected value from enum list, to display all possible choices
             List<string> enumChoices = new List<string>(enumInteraction.GetSelectedValue().param);
+            string selectedEnum = enumInteraction.GetSelectedValue().param[0];
             enumChoices.RemoveAt(0);
-            description.InitDescription(enumInteraction.GetSelectedValue().name, string.Join(", ", enumChoices.ToArray()));//enumInteraction.GetSelectedValue().param[0]);
+            description.InitDescription(enumInteraction.GetSelectedValue().name,"Enum", selectedEnum, string.Join(", ", enumChoices.ToArray()));
         }
         else if (vec3Interaction.gameObject.active)
         {
-            description.InitDescription(vec3Interaction.GetSelectedValue().name, vec3Interaction.GetSelectedValue().param.ToString());
+            description.InitDescription(vec3Interaction.GetSelectedValue().name, "Vector3", vec3Interaction.GetSelectedValue().param.ToString());
         }
     }
 

@@ -67,8 +67,11 @@ public class FloatChanger : UnityFloatInteraction
     // Update is called once per frame
     void Update()
     {
-        ChangeStep();
-        ChangeFloatValue();
+        if (Time.frameCount % 3 == 0)
+        {
+            ChangeStep();
+            ChangeFloatValue();
+        }
         floatValueDisplay.rotation = Quaternion.Euler(0, leftHand.eulerAngles.y, 0);
         stepSizeDisplay.rotation = Quaternion.Euler(0, rightHand.eulerAngles.y, 0);
     }
@@ -89,7 +92,7 @@ public class FloatChanger : UnityFloatInteraction
         {
             float rotation = GetRHRotation();
             float angle = (rotation + 1) * 180;
-            float[] stepSizes = new float[]{0.00001f, 0.0001f, 0.001f, 0.01f, 0.1f, 1, 10};
+            float[] stepSizes = new float[]{0.0001f, 0.001f, 0.01f, 0.1f, 1, 10};
 
             float section = angle / 360;
             int index = (int)System.Math.Round(stepSizes.Length * section, 0);
@@ -131,12 +134,12 @@ public class FloatChanger : UnityFloatInteraction
 
     public void UpdateFloatText()
     {
-        floatValueText.text = selectedFloat.ToString();
+        floatValueText.text = selectedFloat.ToString("0.000");
     }
 
     public void SetFloatValueText(float value)
     {
-        floatValueText.text = value.ToString();
+        floatValueText.text = value.ToString("0.000");
     }
 
     public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
