@@ -14,6 +14,16 @@ public class ActiveObject : UnityBoolInteraction, IPointerClickHandler
         base.StartInteraction(initValue, sender);
 
         isActive = selectedValue.param;
+
+        if (isActive)
+        {
+            transform.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+
+        }
+        else
+        {
+            transform.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -22,11 +32,11 @@ public class ActiveObject : UnityBoolInteraction, IPointerClickHandler
         {
             if (isActive)
             {
-                transform.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                transform.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
 
             } else
             {
-                transform.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                transform.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             }
 
             isActive = !isActive;

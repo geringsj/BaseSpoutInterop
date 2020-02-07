@@ -28,35 +28,97 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
 
     override public void StartInteraction(Parameter<List<string>> initValue, VisParamSender<List<string>> sender)
     {
+        //if (initValue.name.Equals("ao::shadeMode"))
+        //{
+        //    initValue.param.RemoveAt(0);
+        //    initValue.param.RemoveAt(0);
+        //    initValue.param.RemoveAt(0);
+        //    initValue.param.RemoveAt(0);
+
+        //    Debug.Log("[smoothrotation] deleted first elements " + string.Join(", ", initValue.param.ToArray()));
+        //}
+        transform.Rotate(new Vector3(0, 0, 0));
+
+        //reset();
         Debug.Log("[VisInteraction]: start interaction");
         selectedValue = initValue;
+        Debug.Log("[smoothrotation]: received Values = " + string.Join(", ", selectedValue.param.ToArray()));
         this.senderManager = sender;
+        this.value = null;
         this.value = initValue.param;
-
+        setUpValuesList();
         values = new List<string>(initValue.param.ToArray());
         values.RemoveAt(0);
         gameObject.SetActive(true);
-        setUpValuesList();
+
+        Debug.Log("[smoothrotation]: received Values = " + string.Join(", ", values.ToArray()));
+
+        Debug.Log("[Integerinteraction]: Init attributes: param values = " + string.Join(", ", selectedValue.param.ToArray()) + " backindex = " + backElementIndx + " frontElementindex " + frontElementIndx + " backvalueindex " + backValueIndx);
+
+        Debug.Log("[Integerinteraction]: Values after setup = " + string.Join(", ", selectedValue.param.ToArray()));
+
+        int startidx = 0;
+        for (int i = 0; i < values.Count; i++)
+        {
+            string str = values[0];
+
+            if (str.Equals(selectedValue.param[0]))
+            {
+                startidx = i;
+                break;
+            }
+        }
+
         
         while (!texts[frontElementIndx].text.Equals(selectedValue.param[0]))
         {
 
             if (!isRotating)
             {
-                rotate();
+                Debug.Log("[Integerinteraction]: Values before rotate = " + string.Join(", ", selectedValue.param.ToArray()));
+                rotateNoAnimation();
+                Debug.Log("[Integerinteraction]: Values after rotate = " + string.Join(", ", selectedValue.param.ToArray()));
             }
-            Debug.Log("[Integerinteraction]: selectedValue = " + selectedValue.param[0] + ", frontElement = " + texts[frontElementIndx].text + ", " + !values[frontElementIndx].Equals(selectedValue.param[0]));
+            Debug.Log("[Integerinteraction]: selectedValue = " + selectedValue.param[0] + ", frontElement = " + texts[frontElementIndx].text + ", " + !texts[frontElementIndx].text.Equals(selectedValue.param[0]));
         }
+        i = -50;
 
         Debug.Log("[VisEnumInteraction]: Enum param successful started");
+        Debug.Log("[Integerinteraction]: finished setUp, displayed Value = " + texts[frontElementIndx].text);
+
+        if (values.Count < totalsides)
+        {
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+        }
+
     }
 
+    private void reset()
+    {
+
+
+      rotation = -50;
+     List<string> values = new List<string>();
+      backElementIndx = 4;
+      frontElementIndx = 0;
+      backValueIndx = 4;
+      isRotating = false;
+        i = -50; ;
+}
 
 
     // Start is called before the first frame update
     new void Start()
     {
         gameObject.SetActive(false);
+
         setUpValuesList();
     }
 
@@ -78,6 +140,17 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
 
         // get the text fields in rotation direction
         texts = GetComponentsInChildren<Text>();
+
+        string[] arrayText = new string[texts.Length];
+        int i = 0;
+        foreach (Text t in texts)
+        {
+            arrayText[i] = t.name;
+            i++;
+        }
+
+        Debug.Log("[Integerinteraction]: found texts = " + string.Join(", ", arrayText));
+
 
         backElementIndx = upSides - 1;
         backValueIndx = (upSides - 1) % values.Count;
@@ -115,20 +188,22 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
         i = -1;
     }
 
+    
+
     private void rotate()
     {
-        
+        texts[frontElementIndx].color = Color.black;
         /*
          *change text of the back element too increase the number of displayable values to infinity
          */
         backElementIndx++;
-        if (backElementIndx >= totalsides) // prefent index out of bounds
+        if (backElementIndx >= totalsides) // prevent index out of bounds
         {
             backElementIndx = 0;
         }
 
         frontElementIndx++;
-        if (frontElementIndx >= totalsides) // prefent index out of bounds
+        if (frontElementIndx >= totalsides) // prevent index out of bounds
         {
             frontElementIndx = 0;
         }
@@ -137,18 +212,27 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
 
         texts[backElementIndx].text = values[backValueIndx];
 
-        selectedValue.param[0] = texts[frontElementIndx].text;
+        
         Debug.Log("[hexagonEnum]: front Text: " + selectedValue.param[0] + ", " + selectedValue.param.Count);
         Debug.Log("[hexagonEnum]: displayed Value: " + string.Join(", ", GetSelectedValue().param.ToArray()));
         Debug.Log("[hexagonEnum]: Values: " + string.Join(", ", values.ToArray()));
-
+        texts[frontElementIndx].color = Color.red;
         if (senderManager != null)
         {
+            
+            selectedValue.param[0] = texts[frontElementIndx].text;
             senderManager.Send(base.selectedValue);
         }
 
         rotation = -45;
         i = -1;
+    }
+
+    private void rotateNoAnimation()
+    {
+        rotate();
+        i = -50;
+        this.transform.Rotate(new Vector3(-45, 0, 0));
     }
 
     public Text getFrontText()
@@ -172,13 +256,23 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        if (i >= rotation)
+        Debug.Log("[Integerinteraction] is rotating = " + isRotating);
+        if (i > rotation)
         {
             isRotating = true;
             this.transform.Rotate(new Vector3(i * 0.045f, 0, 0));
-            //Debug.Log("i = " + i + ", " + rotation);
-            i--;
+            //this.transform.rotation = Quaternion.Euler(0, i * 0.045f, 0);
+            //this.transform.eulerAngles = new Vector3(i * 0.045f, 0, 0);
+           //Debug.Log("i = " + i + ", " + rotation);
+           i--;
+         
         }
+        //else if (i == rotation)
+        //{
+        //        this.transform.Rotate(new Vector3(frontElementIndx*-45, 0, 0));
+        //    Debug.Log("[smoothrotation] currrent rotation " + frontElementIndx * -45 + " front index " + frontElementIndx);
+        //        i--;
+        //}
         else
         {
             isRotating = false;
