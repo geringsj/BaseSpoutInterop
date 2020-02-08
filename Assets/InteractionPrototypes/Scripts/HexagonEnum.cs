@@ -13,6 +13,8 @@ using interop;
 public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
 {
     //specific variables depending on the geometric form (octagon)
+    public Color SelectedValueColor = Color.red;
+
     private int upSides = 5;
     private int downsides = 3;
     private int totalsides = 8;
@@ -38,9 +40,10 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
         //    Debug.Log("[smoothrotation] deleted first elements " + string.Join(", ", initValue.param.ToArray()));
         //}
         transform.Rotate(new Vector3(0, 0, 0));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         //reset();
-        Debug.Log("[VisInteraction]: start interaction");
+        Debug.Log("[VisInteraction]: start interaction for " + initValue.modulFullName + ", " + initValue.name);
         selectedValue = initValue;
         Debug.Log("[smoothrotation]: received Values = " + string.Join(", ", selectedValue.param.ToArray()));
         this.senderManager = sender;
@@ -51,52 +54,60 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
         values.RemoveAt(0);
         gameObject.SetActive(true);
 
+        // set the text color to black
+        foreach (Text t in texts)
+        {
+            t.color = Color.black;
+        }
+
         Debug.Log("[smoothrotation]: received Values = " + string.Join(", ", values.ToArray()));
 
         Debug.Log("[Integerinteraction]: Init attributes: param values = " + string.Join(", ", selectedValue.param.ToArray()) + " backindex = " + backElementIndx + " frontElementindex " + frontElementIndx + " backvalueindex " + backValueIndx);
 
         Debug.Log("[Integerinteraction]: Values after setup = " + string.Join(", ", selectedValue.param.ToArray()));
 
-        int startidx = 0;
-        for (int i = 0; i < values.Count; i++)
-        {
-            string str = values[0];
+        //int startidx = 0;
+        //for (int i = 0; i < values.Count; i++)
+        //{
+        //    string str = values[0];
 
-            if (str.Equals(selectedValue.param[0]))
-            {
-                startidx = i;
-                break;
-            }
-        }
+        //    if (str.Equals(selectedValue.param[0]))
+        //    {
+        //        startidx = i;
+        //        break;
+        //    }
+        //}
 
-        
+        // rotate (without animation) until the front element has the same string as the selected value
         while (!texts[frontElementIndx].text.Equals(selectedValue.param[0]))
         {
 
             if (!isRotating)
             {
-                Debug.Log("[Integerinteraction]: Values before rotate = " + string.Join(", ", selectedValue.param.ToArray()));
+                //Debug.Log("[Integerinteraction]: Values before rotate = " + string.Join(", ", selectedValue.param.ToArray()));
+                
                 rotateNoAnimation();
-                Debug.Log("[Integerinteraction]: Values after rotate = " + string.Join(", ", selectedValue.param.ToArray()));
+                //Debug.Log("[Integerinteraction]: Values after rotate = " + string.Join(", ", selectedValue.param.ToArray()));
             }
             Debug.Log("[Integerinteraction]: selectedValue = " + selectedValue.param[0] + ", frontElement = " + texts[frontElementIndx].text + ", " + !texts[frontElementIndx].text.Equals(selectedValue.param[0]));
         }
+        texts[frontElementIndx].color = SelectedValueColor;
         i = -50;
 
         Debug.Log("[VisEnumInteraction]: Enum param successful started");
         Debug.Log("[Integerinteraction]: finished setUp, displayed Value = " + texts[frontElementIndx].text);
 
-        if (values.Count < totalsides)
-        {
-            rotateNoAnimation();
-            rotateNoAnimation();
-            rotateNoAnimation();
-            rotateNoAnimation();
-            rotateNoAnimation();
-            rotateNoAnimation();
-            rotateNoAnimation();
-            rotateNoAnimation();
-        }
+        //if (values.Count < totalsides)
+        //{
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //    rotateNoAnimation();
+        //}
 
     }
 
@@ -117,8 +128,18 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
     // Start is called before the first frame update
     new void Start()
     {
-        gameObject.SetActive(false);
 
+
+        //Parameter<List<string>> param = new Parameter<List<string>>();
+        //param.name = "test";
+        //param.modulFullName = "modulNameTest";
+        //param.param = new List<string>(new string[] { "5", "1", "2", "3", "4", "5"});//new string[] { "erstesEl", "zweitesEl", "drittesEl", "viertesElement" });
+
+        //StartInteraction(param, null);
+        //StopInteraction();
+        //StartInteraction(param, null);
+
+        gameObject.SetActive(false);
         setUpValuesList();
     }
 
@@ -216,7 +237,7 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
         Debug.Log("[hexagonEnum]: front Text: " + selectedValue.param[0] + ", " + selectedValue.param.Count);
         Debug.Log("[hexagonEnum]: displayed Value: " + string.Join(", ", GetSelectedValue().param.ToArray()));
         Debug.Log("[hexagonEnum]: Values: " + string.Join(", ", values.ToArray()));
-        texts[frontElementIndx].color = Color.red;
+        texts[frontElementIndx].color = SelectedValueColor;
         if (senderManager != null)
         {
             

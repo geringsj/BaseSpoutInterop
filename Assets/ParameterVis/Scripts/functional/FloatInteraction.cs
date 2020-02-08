@@ -29,14 +29,17 @@ public class FloatInteraction : UnityFloatInteraction, IPointerClickHandler
        comma = transform.GetChild(4).gameObject;
         comma.SetActive(false);
 
+        // for testing purposes only
         //Parameter<float> param = new Parameter<float>();
         //param.name = "zeszInt";
         //param.modulFullName = "tesmodulname";
-        //param.param = 123.261f;
+        //param.param = 90123.261f;
 
         //selectedValue = param;
         //StartInteraction(param, null);
-        //comma.SetActive(false);
+        //StopInteraction();
+        //param.param = 860.097f;
+        //StartInteraction(param, null);
         base.Start();
     }
 

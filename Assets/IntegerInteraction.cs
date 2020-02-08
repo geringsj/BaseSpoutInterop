@@ -22,12 +22,19 @@ public class IntegerInteraction : UnityIntInteraction, IPointerClickHandler
             }
         }
 
+        // for testing purposes only
         //Parameter<int> param = new Parameter<int>();
         //param.name = "zeszInt";
         //param.modulFullName = "tesmodulname";
-        //param.param = 123;
+        //param.param = 8163;
 
         //selectedValue = param;
+        //StartInteraction(param, null);
+
+        //StopInteraction();
+
+        //param.param = 2950;
+
         //StartInteraction(param, null);
 
         base.Start();
