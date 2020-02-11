@@ -97,17 +97,17 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
         Debug.Log("[VisEnumInteraction]: Enum param successful started");
         Debug.Log("[Integerinteraction]: finished setUp, displayed Value = " + texts[frontElementIndx].text);
 
-        //if (values.Count < totalsides)
-        //{
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //    rotateNoAnimation();
-        //}
+        if (values.Count < totalsides)
+        {
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+            rotateNoAnimation();
+        }
 
     }
 
