@@ -39,11 +39,11 @@ public class HexagonEnum : UnityEnumInteraction, IPointerClickHandler
 
         //    Debug.Log("[smoothrotation] deleted first elements " + string.Join(", ", initValue.param.ToArray()));
         //}
-        transform.Rotate(new Vector3(0, 0, 0));
+        //transform.Rotate(new Vector3(0, 0, 0));
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         //reset();
-        Debug.Log("[VisInteraction]: start interaction for " + initValue.modulFullName + ", " + initValue.name);
+        Debug.Log("[FloatInteraction]: start interaction for " + initValue.modulFullName + ", " + initValue.name + ", " + initValue.param.Count);
         selectedValue = initValue;
         Debug.Log("[smoothrotation]: received Values = " + string.Join(", ", selectedValue.param.ToArray()));
         this.senderManager = sender;

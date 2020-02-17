@@ -29,18 +29,24 @@ public class FloatInteraction : UnityFloatInteraction, IPointerClickHandler
        comma = transform.GetChild(4).gameObject;
         comma.SetActive(false);
 
-        // for testing purposes only
-        //Parameter<float> param = new Parameter<float>();
-        //param.name = "zeszInt";
-        //param.modulFullName = "tesmodulname";
-        //param.param = 90123.261f;
 
-        //selectedValue = param;
-        //StartInteraction(param, null);
-        //StopInteraction();
-        //param.param = 860.097f;
-        //StartInteraction(param, null);
+        
+
+        //for testing purposes only
+
+       //Parameter<float> param = new Parameter<float>();
+       // param.name = "zeszInt";
+       // param.modulFullName = "tesmodulname";
+       // param.param = 90123.261f;
+
+       // selectedValue = param;
+       // StartInteraction(param, null);
+       // StopInteraction();
+       // param.param = 860.097f;
+       // StartInteraction(param, null);
         base.Start();
+
+
     }
 
     public override void StopInteraction()

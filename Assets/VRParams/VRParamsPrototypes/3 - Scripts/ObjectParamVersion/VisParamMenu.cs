@@ -12,7 +12,7 @@ public class VisParamMenu : MonoBehaviour
     private List<object> parameterNameList = new List<object>();
     //protected SortedDictionary<string, object> parameterList = new SortedDictionary<string, object>();
     private VisParamSenderManager senderManager;
-    private VisVarSender varSender;
+    //private VisVarSender varSender;
 
     public void AddParameter(string name, object p)
     {
