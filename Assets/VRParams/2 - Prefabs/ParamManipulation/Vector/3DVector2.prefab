@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1085121789233867359}
   - component: {fileID: 5519151118473411685}
   - component: {fileID: 2109435005726696772}
+  - component: {fileID: -8510441755790508398}
   m_Layer: 0
-  m_Name: 3DVector
+  m_Name: 3DVector2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +98,18 @@ MonoBehaviour:
     m_TypeName: Draggable+UnityEventDraggable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   m_scrollingSpeed: 0.01
+--- !u!114 &-8510441755790508398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099941230759025635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e53c105175798428e7031b4275d277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6130990115151973338
 GameObject:
   m_ObjectHideFlags: 0
